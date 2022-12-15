@@ -1,0 +1,35 @@
+FLASK_APP=app
+source fenv/bin/activate
+FLASK_APP=app
+  467  python -m flask run
+  468  python3 -m flask run
+  469  python3 -m venv fenv
+  470  source fenv/bin/activate
+  471  pip install jinja2
+  472  python3 -m flask run
+  473  pip install flask
+  474  python3 -m flask run
+  475  pip install requests
+  476  python3 -m flask run
+  477  pip install yaml
+  478  pip install pyyaml
+  479  python3 -m flask run
+  480  pip install jira
+  481  python3 -m flask run
+  482  source fenv/bin/activate
+  483  python3 -m flask run
+  484  deactivate 
+  485  source fenv/bin/activate
+  486  python3 -m flask run
+  487  pip freeze
+  488  pip install flask
+  489  python3 -m flask 
+  490  pip install requests
+  491  python3 -m flask run
+  492  history 
+  493  pip install pyyaml
+  494  python3 -m flask run
+  495  pip3 install packaging
+  496  python3 -m flask run
+  497  pip install jira
+  498  python3 -m flask run
