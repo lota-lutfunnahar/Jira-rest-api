@@ -1,14 +1,7 @@
-import json
-from typing import List, Any
-
-import requests
 from flask import Flask, flash, redirect, render_template, request, session, abort
-import os
 import logging
-import yaml
 import datetime
 import os
-from pathlib import Path
 
 from jira import JIRA
 import jira_dir
