@@ -47,3 +47,38 @@ def get_board(endpoint: str, what: str, params: str):
         print('OK GET data', data)
 
     return data
+
+
+def get_sprint_status(endpoint: str, what: str, params: str):
+    if params is None:
+        params = {}
+
+    url = jira_dir.API_SPT_URL + endpoint + '/' + params
+    print(url)
+
+    response = rest.get(url, auth=jira_dir.AUTH).json()
+
+    print(response)
+    print('OK GET', endpoint)
+
+    return response
+
+
+def get_sprint_issue(endpoint: str, what: str, params: str):
+    if params is None:
+        params = {}
+
+    url = jira_dir.API_SPT_URL + endpoint + '/' + params + '/issue?'
+    print('URL', url)
+
+    response = rest.get(url, auth=jira_dir.AUTH).json()
+
+    # print(response)
+    print('OK GET', endpoint)
+
+    data = []
+
+    if response['total'] is not None:
+        for i in response['issues']:
+            data.append(i)
+    return data

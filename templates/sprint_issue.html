@@ -8,27 +8,32 @@
          <div class="dashboard-screen">
              <div class="app-title">
                 <p> You are successful logged in!  <a href='/logout'>Logout</a> </p>
-                <p> Worklog result <a href='/worklog'>Worklog</a> </p>
              </div>
             <table style="border:1px">
                 <tr>
-                    <th>ID</th>
-                    <th>Project Key</th>
-                    <th>Project Name</th>
-                    <th>Details</th>
+                    <th>Title</th>
+                    <th>Information</th>
                 </tr>
-                {% for item in data %}
                 <tr>
-                   <td>{{item.id}}</td>
-                   <td>{{item.key}}</td>
-                   <td>{{item.name}}</td>
-                   <td>
-                   <a href="/getBoard/{{item.boardid}}">
-                      <span class="glyphicon glyphicon-share">{{item.boardid}}</span>
-                    </a>
-                   </td>
+                   <th>ID</th>
+                   <td>{{info.id}}</td>
                 </tr>
-                {% endfor %}
+                <tr>
+                   <th>Sprint Name</th>
+                   <td>{{info.name}}</td>
+                </tr>
+                <tr>
+                   <th>Start Date</th>
+                   <td>{{info.startDate}}</td>
+                </tr>
+                <tr>
+                   <th>End Date</th>
+                   <td>{{info.completeDate}}</td>
+                </tr>
+                <tr>
+                   <th>Status</th>
+                   <td>{{info.state}}</td>
+                </tr>
             </table>
          </div>
     </div>

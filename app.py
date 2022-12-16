@@ -105,6 +105,18 @@ def get_boards(id):
 
     return render_template('sprint.html', data=data)
 
+@app.route("/sprint" , methods=['GET', 'POST'])
+def get_sprint():
+    select_id = request.form.get('format')
+
+    sprint_sts_dta = jira_dir.util.get_sprint_status('/sprint', 'issues', str(select_id))
+    sprint_issue_dta = jira_dir.util.get_sprint_issue('/sprint', 'issues', str(select_id))
+    print('selected value', str(select_id))
+    print('selected value response', sprint_sts_dta)
+    # print('sprint value response', sprint_issue_dta)
+
+    return render_template('sprint_issue.html', info=sprint_sts_dta)
+
 @app.route('/worklog', methods=['GET'])
 def get_worklog():
     print(f"Running for {jira_dir.HOST}, {MONTH_START.format('MMMM YYYY')}...")
