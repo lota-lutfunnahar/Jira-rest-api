@@ -43,7 +43,7 @@ select {
    outline:0;
    box-shadow:none;
    border:0!important;
-   background: #dbe7e6;
+   background: #e8edf1;
    background-image: none;
    flex: 1;
    padding: 0 .5em;
@@ -71,13 +71,13 @@ select::-ms-expand {
    top: 0;
    right: 0;
    padding: 0 1em;
-   background: #2b2e2e;
+   background: #1a5074;
    cursor:pointer;
    pointer-events:none;
    transition:.25s all ease;
 }
 .select:hover::after {
-   color: #23b499;
+   color: white;
 }
 
 .header4 {

@@ -7,7 +7,7 @@ box-sizing: border-box;
 }
 body {
 font-family: Arial;
-background-color: #3498DB;
+background-color: #1a5074;
 padding: 50px;
 }
 .login {
@@ -86,5 +86,9 @@ box-shadow: none;
     padding: 20px;
     border-radius: 5px
   }
+
+.dashboard-form {
+text-align: center;
+}
 
 

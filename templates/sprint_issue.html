@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="/static/table.css" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -9,11 +10,15 @@
              <div class="app-title">
                 <p> You are successful logged in!  <a href='/logout'>Logout</a> </p>
              </div>
-            <table style="border:1px">
+             <table class="content-table">
+              <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Information</th>
+                  <th>Title</th>
+                  <th>Information</th>
                 </tr>
+              </thead>
+
+              <tbody>
                 <tr>
                    <th>ID</th>
                    <td>{{info.id}}</td>
@@ -34,7 +39,31 @@
                    <th>Status</th>
                    <td>{{info.state}}</td>
                 </tr>
+              </tbody>
             </table>
+             <table class="content-table">
+                  <thead>
+                    <tr>
+                      <th>Key</th>
+                      <th>Issue Type</th>
+                      <th>Time Spent</th>
+                      <th>Created</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                {% for item in data %}
+                    <tr>
+                      <td>{{item.key}}</td>
+                      <td>{{item.fields.issuetype.name}}</td>
+                      <td>{{item.fields.timespent}}</td>
+                      <td>{{item.fields.created}}</td>
+
+                    </tr>
+                {% endfor %}
+
+                  </tbody>
+                </table>
          </div>
     </div>
 <!-- </body> -->

@@ -27,6 +27,9 @@ MONTHS_BACKWARD_OFFSET = -1
 MONTH_START = arrow.now().shift(months=MONTHS_BACKWARD_OFFSET).floor('month')\
     if IS_PREV_MONTH else arrow.now().floor('month')
 
+
+
+
 log = logging.getLogger(__name__)
 
 # with open("resources/config.yml", 'r') as ymlfile:
@@ -40,15 +43,15 @@ log = logging.getLogger(__name__)
 
 @app.route('/')
 def home():
-
     if not session.get('logged_in'):
         return render_template('login.html')
-    # else:
-    #     return render_template('dashboard.html')
-        # return "You are successful logged in!  <a href='/logout'>Logout</a>"
+    else:
+        jira = authenticate_via_jira(jira_dir.USER, jira_dir.PASS)
+        data = print_jira_projects_out(jira)
+        return render_template('dashboard.html', data=data)
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     jira = authenticate_via_jira(request.form['username'], request.form['password'])
     if jira is None:
@@ -56,7 +59,6 @@ def login():
     else:
         session['logged_in'] = True
         data = print_jira_projects_out(jira)
-        print(data)
         return render_template('dashboard.html', data=data)
     return home()
 
@@ -112,10 +114,16 @@ def get_sprint():
     sprint_sts_dta = jira_dir.util.get_sprint_status('/sprint', 'issues', str(select_id))
     sprint_issue_dta = jira_dir.util.get_sprint_issue('/sprint', 'issues', str(select_id))
     print('selected value', str(select_id))
-    print('selected value response', sprint_sts_dta)
+    print('selected value response', sprint_issue_dta)
     # print('sprint value response', sprint_issue_dta)
 
-    return render_template('sprint_issue.html', info=sprint_sts_dta)
+    return render_template('sprint_issue.html', info=sprint_sts_dta, data=sprint_issue_dta)
+@app.route('/userProfile')
+def get_users():
+
+    # data = jira_dir.util.get_board('/board', 'issues', id)
+
+    return render_template('jira_user.html')
 
 @app.route('/worklog', methods=['GET'])
 def get_worklog():
