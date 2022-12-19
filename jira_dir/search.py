@@ -6,12 +6,10 @@ import jira_dir.util
 import util
 
 
-def get_issues() -> List[Any]:
+def get_issues(accountid:str) -> List[Any]:
     search_params = {
-        'jql': f'assignee in ({jira_dir.USERNAME}) AND worklogDate >= startOfMonth("{app.MONTHS_BACKWARD_OFFSET}") AND '
+        'jql': f'assignee in ({accountid}) AND worklogDate >= startOfMonth("{app.MONTHS_BACKWARD_OFFSET}") AND '
                'worklogDate < startOfMonth()'
-               if app.IS_PREV_MONTH else f'assignee in ({jira_dir.USERNAME}) AND worklogDate >= startOfMonth()',
-        'fields': ['summary', 'status']
     }
 
     print(search_params)

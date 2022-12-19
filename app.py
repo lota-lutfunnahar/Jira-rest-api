@@ -94,6 +94,12 @@ def print_jira_projects_out(jira):
             v.__setattr__('boardid', '29')
         elif v.__getattribute__('key') == "THREATIDR":
             v.__setattr__('boardid', '3')
+        elif v.__getattribute__('key') == "PI":
+            v.__setattr__('boardid', '8')
+        elif v.__getattribute__('key') == "PT":
+            v.__setattr__('boardid', '34')
+        elif v.__getattribute__('key') == "ISMS":
+            v.__setattr__('boardid', '30')
         else:
             v.__setattr__('boardid', None)
         dta.append(v)
@@ -113,25 +119,35 @@ def get_sprint():
 
     sprint_sts_dta = jira_dir.util.get_sprint_status('/sprint', 'issues', str(select_id))
     sprint_issue_dta = jira_dir.util.get_sprint_issue('/sprint', 'issues', str(select_id))
-    print('selected value', str(select_id))
-    print('selected value response', sprint_issue_dta)
-    # print('sprint value response', sprint_issue_dta)
-
+    print(sprint_issue_dta)
     return render_template('sprint_issue.html', info=sprint_sts_dta, data=sprint_issue_dta)
+
 @app.route('/userProfile')
 def get_users():
+    data = {
+        'mstId': '621dde62a124500068869fe0',
+        'apId': '5f84ef550756940075ec1f2d',
+        'spId': '5fe02608dd5eb5010833660f',
+        'twId': '61470fa2d747e80075cf019d',
+        'rcId': '5fbcad8ecbead50069233962',
+        'ansId': '60051061bd160e007504d330',
+        'abId': '624bf73e2e101c006a916003',
+        'raiId': '62822ba4ca7d7f0069ffb08e'
+    }
+    print(data)
+    return render_template('jira_user.html', userInfo=data)
 
-    # data = jira_dir.util.get_board('/board', 'issues', id)
-
-    return render_template('jira_user.html')
-
-@app.route('/worklog', methods=['GET'])
-def get_worklog():
+@app.route('/worklog/<string:id>', methods=['GET'])
+def get_worklog(id):
     print(f"Running for {jira_dir.HOST}, {MONTH_START.format('MMMM YYYY')}...")
 
-    issues = jira_dir.search.get_issues()
+    issues = jira_dir.search.get_issues(id)
     # print('issue',issues)
     jira_dir.worklog.attach_worklogs(issues)
+
+    user_info = jira_dir.util.get_user_info('/user', 'issues', id)
+
+    user_name = user_info['displayName']
 
     table = PrettyTable(['Task', 'Name', 'Status', 'Spend time'])
     data_list = []
@@ -156,12 +172,12 @@ def get_worklog():
         <html lang="ru">
             <head>
               <meta charset="UTF-8">
-              <title>Отчёт {jira_dir.USERNAME}</title>
+              <title>Title {user_name}</title>
             </head>
             <body>
-                <p>Jira user <b>{jira_dir.USERNAME}</b> s <b>
+                <p>Jira user <b>{user_name}</b> s <b>
                     {MONTH_START.format('MMMM YYYY', locale='en')}</b>
-                    (Information <a href="{jira_dir.URL}">{jira_dir.HOST}</a>)</p>
+                    (Information <a href="{jira_dir.URL}">{jira_dir.URL}</a>)</p>
                 {table.get_html_string(format=True)}
                 <p><b>Total:</b> {total_working_days} working days
                     ({datetime.timedelta(seconds=total_time_spent_seconds)} actual time).</p>

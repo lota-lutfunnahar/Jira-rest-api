@@ -6,11 +6,31 @@ import requests as rest
 import jira_dir
 
 
+def get_all_worklog(endpoint: str, what: str, params: Mapping[str, Any] = None) -> Mapping[str, Any]:
+    if params is None:
+        params = {}
+
+    url = jira_dir.API_URL + endpoint
+    data = rest.get(url, auth=jira_dir.AUTH).json()
+
+    if data['total'] > data['maxResults']:
+        for page in range(1, math.ceil(data['total'] / data['maxResults'])):
+            temp = rest.get(url, auth=jira_dir.AUTH, params={
+                **params,
+                'startAt': page * jira_dir.PAGE_SIZE  # specify the offset
+            }).json()
+            print('OK GET', endpoint)
+
+    return data
+
+
 def get_all(endpoint: str, what: str, params: Mapping[str, Any] = None) -> Mapping[str, Any]:
     if params is None:
         params = {}
 
-    url = jira_dir.API_URL + endpoint + '?jql=assignee in (621dde62a124500068869fe0) AND worklogDate >= startOfMonth("-1") AND worklogDate < startOfMonth() order by created DESC'
+    print("test arg", params.get('jql'))
+
+    url = jira_dir.API_URL + endpoint + '?jql=' + params.get('jql')
 
     data = rest.get(url, auth=jira_dir.AUTH).json()
 
@@ -82,3 +102,17 @@ def get_sprint_issue(endpoint: str, what: str, params: str):
         for i in response['issues']:
             data.append(i)
     return data
+
+
+def get_user_info(endpoint: str, what: str, params: str):
+    if params is None:
+        params = {}
+
+    url = jira_dir.API_URL_2 + endpoint + '?accountId=' + params
+    print('URL', url)
+
+    response = rest.get(url, auth=jira_dir.AUTH).json()
+
+    # print(response)
+    print('OK GET', endpoint)
+    return response
