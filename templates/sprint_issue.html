@@ -37,33 +37,51 @@
                 </tr>
                 <tr>
                    <th>Status</th>
-                   <td>{{info.state}}</td>
+                    {% if info.state == 'active' %}
+                        <td style="color:green">{{info.state}}</td>
+                    {% else %}
+                        <td>{{info.state}}</td>
+                    {% endif %}
                 </tr>
               </tbody>
             </table>
              <table class="content-table">
                   <thead>
                     <tr>
-                      <th>Key</th>
                       <th>Issue Type</th>
+                      <th>Key</th>
                       <th>Title</th>
-                      <th>Time Spent</th>
+                      <th>Epic</th>
                       <th>Created</th>
+                      <th>Time Spent</th>
+                      <th>Status</th>
+                      <th>Assignee</th>
                     </tr>
                   </thead>
                   <tbody>
 
                 {% for item in data %}
                     <tr>
-                      <td>{{item.key}}</td>
                       <td>{{item.fields.issuetype.name}}</td>
+                      <td><a href="{{url}}/browse/{{item.key}}">{{item.key}}</a></td>
                       <td>{{item.fields.summary}}</td>
-                      <td>{{item.fields.timespent}}</td>
+                        {% if item.fields.parent %}
+                            <td><a href="{{url}}/browse/{{item.fields.parent.key}}">{{item.fields.parent.fields.summary}}</a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                       <td>{{item.fields.created}}</td>
-
+                      <td style="color:darkmagenta">{{item.fields.timespent | strftime }}</td>
+                        {% if item.fields.status.name == 'Done' %}
+                             <td style="color:green">{{item.fields.status.name}}</td>
+                         {% elif item.fields.status.name == 'In Progress' %}
+                            <td style="color:blue">{{item.fields.status.name}}</td>
+                         {% else %}
+                            <td>{{item.fields.status.name}}</td>
+                        {% endif %}
+                      <td>{{item.fields.assignee.displayName}}</td>
                     </tr>
                 {% endfor %}
-
                   </tbody>
                 </table>
          </div>

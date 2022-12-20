@@ -1,3 +1,4 @@
+import dateutil
 from flask import Flask, flash, redirect, render_template, request, session, abort
 import logging
 import datetime
@@ -14,9 +15,16 @@ import html
 # HACK: https://github.com/jazzband/prettytable/issues/40#issuecomment-846439234
 html.escape = lambda *args, **kwargs: args[0]
 from prettytable import PrettyTable
+import time
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
+
+
+@app.template_filter('strftime')
+def _jinja2_filter_datetime(values):
+    convert = time.strftime("%H:%M:%S", time.gmtime(values))
+    return convert
 
 jira_server = 'https://asgardia.atlassian.net/'
 
@@ -84,14 +92,14 @@ def print_jira_projects_out(jira):
     dta = []
 
     for v in projects:
-        if v.__getattribute__('key') == "AIML":
-            v.__setattr__('boardid', '33')
-        elif v.__getattribute__('key') == "DLAQ":
+        # if v.__getattribute__('key') == "AIML":
+        #     v.__setattr__('boardid', '33')
+        if v.__getattribute__('key') == "DLAQ":
             v.__setattr__('boardid', '19')
         elif v.__getattribute__('key') == "JAR":
             v.__setattr__('boardid', '5')
-        elif v.__getattribute__('key') == "PS":
-            v.__setattr__('boardid', '29')
+        # elif v.__getattribute__('key') == "PS":
+        #     v.__setattr__('boardid', '29')
         elif v.__getattribute__('key') == "THREATIDR":
             v.__setattr__('boardid', '3')
         elif v.__getattribute__('key') == "PI":
@@ -102,7 +110,10 @@ def print_jira_projects_out(jira):
             v.__setattr__('boardid', '30')
         else:
             v.__setattr__('boardid', None)
-        dta.append(v)
+
+        if v.__getattribute__('boardid') is not None:
+            dta.append(v)
+
     return dta
 
 
@@ -120,7 +131,7 @@ def get_sprint():
     sprint_sts_dta = jira_dir.util.get_sprint_status('/sprint', 'issues', str(select_id))
     sprint_issue_dta = jira_dir.util.get_sprint_issue('/sprint', 'issues', str(select_id))
     print(sprint_issue_dta)
-    return render_template('sprint_issue.html', info=sprint_sts_dta, data=sprint_issue_dta)
+    return render_template('sprint_issue.html', info=sprint_sts_dta, data=sprint_issue_dta, url=jira_dir.URL)
 
 @app.route('/userProfile')
 def get_users():
