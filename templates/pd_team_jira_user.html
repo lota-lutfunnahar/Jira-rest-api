@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--  <link rel="stylesheet" href="/static/style.css" type="text/css">-->
   <link rel="stylesheet" href="/static/profile.css" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -10,17 +9,12 @@
 <body>
 
   <div class="dashboard-screen" style="margin-top: 40px;">
-<!--         <div class="app-title">-->
-<!--            <p> You are successful logged in!  <a href='/logout'>Logout</a> </p>-->
-<!--&lt;!&ndash;                <p> Worklog result <a href='/worklog'>Worklog</a> </p>&ndash;&gt;-->
-<!--            <p> Worklog result <a href='/userProfile'>User Profile Information</a> </p>-->
-<!--         </div>-->
    <div class="container mt-2">
       <div class="row">
         <div class="col-md-3 col-sm-6 item">
           <div class="card item-card card-block">
             <img src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset">
-                <h5 class="item-card-title mt-3 mb-3">Mst Lutfunnahar Lota • PO </h5>
+                <h5 class="card-title  mt-3 mb-3">Mst Lutfunnahar Lota • PO </h5>
                 <p class="card-text"><a href='/worklog/{{userInfo.mstId}}'>Worklog</a></p>
           </div>
         </div>
@@ -49,30 +43,23 @@
       <div class="row">
         <div class="col-md-3 col-sm-6 item">
           <div class="card item-card card-block">
-            <img src="https://images.pexels.com/photos/4126743/pexels-photo-4126743.jpeg" alt="Photo of sunset">
-                <h5 class="item-card-title mt-3 mb-3">Rashed Chowdhury • Manager SE </h5>
-                <p class="card-text"><a href='/worklog/{{userInfo.rcId}}'>Worklog</a></p>
+            <img src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Mushfiqul Islam Chowdhury • Software Engineer</h5>
+                <p class="card-text"><a href='/worklog/{{userInfo.musId}}'>Worklog</a></p>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 item">
           <div class="card item-card card-block">
-            <img src="https://images.pexels.com/photos/2115217/pexels-photo-2115217.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
-                <h5 class="card-title  mt-3 mb-3">Anisuzzaman Prodhan • TL </h5>
-                <p class="card-text"><a href='/worklog/{{userInfo.ansId}}'>Worklog</a></p>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6 item">
-          <div class="card item-card card-block">
-            <img src="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
-                <h5 class="card-title  mt-3 mb-3">Abdullah Al Mahmud • SE Engineer </h5>
-                 <p class="card-text"><a href='/worklog/{{userInfo.abId}}'>Worklog</a></p>
+            <img src="https://images.pexels.com/photos/1089438/pexels-photo-1089438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Abdullah Al Mamun • CyberSecurity Solution Architect </h5>
+                <p class="card-text"><a href='/worklog/{{userInfo.mamnId}}'>Worklog</a></p>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 item">
           <div class="card item-card card-block">
-            <img src="https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg" alt="Photo of sunset">
-                <h5 class="card-title  mt-3 mb-3">Raisul Islam Reyad • Security Architect </h5>
-                <p class="card-text"><a href='/worklog/{{userInfo.raiId}}'>Worklog</a></p>
+            <img src="https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Imran • TnS Engineer </h5>
+                <p class="card-text"><a href='/worklog/{{userInfo.imranId}}'>Worklog</a></p>
           </div>
         </div>
       </div>

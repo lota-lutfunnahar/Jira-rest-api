@@ -36,8 +36,6 @@ MONTH_START = arrow.now().shift(months=MONTHS_BACKWARD_OFFSET).floor('month')\
     if IS_PREV_MONTH else arrow.now().floor('month')
 
 
-
-
 log = logging.getLogger(__name__)
 
 # with open("resources/config.yml", 'r') as ymlfile:
@@ -133,20 +131,37 @@ def get_sprint():
     print(sprint_issue_dta)
     return render_template('sprint_issue.html', info=sprint_sts_dta, data=sprint_issue_dta, url=jira_dir.URL)
 
-@app.route('/userProfile')
+@app.route('/pdUserProfile')
 def get_users():
     data = {
         'mstId': '621dde62a124500068869fe0',
         'apId': '5f84ef550756940075ec1f2d',
         'spId': '5fe02608dd5eb5010833660f',
         'twId': '61470fa2d747e80075cf019d',
+        'musId': '627783aaea6ca0006972210d',
+        'mamnId': '638840af9960988ef6c10279',
+        'imranId': '6343e6afcba49e290970c792',
+    }
+    print(data)
+    return render_template('pd_team_jira_user.html', userInfo=data)
+
+@app.route('/seUserProfile')
+def get_se_users():
+    data = {
+        'azId': '63883ea05fce844d606bb034',
+        'palId': '63296f968b75455be452fcc1',
+        'arfID': '6226c07e8a4bb60068f4d1e5',
         'rcId': '5fbcad8ecbead50069233962',
         'ansId': '60051061bd160e007504d330',
         'abId': '624bf73e2e101c006a916003',
         'raiId': '62822ba4ca7d7f0069ffb08e'
     }
     print(data)
-    return render_template('jira_user.html', userInfo=data)
+    return render_template('se_team_jira_user.html', userInfo=data)
+
+@app.route('/pipelineTeams')
+def get_team():
+    return render_template('team-wise-user.html')
 
 @app.route('/worklog/<string:id>', methods=['GET'])
 def get_worklog(id):
