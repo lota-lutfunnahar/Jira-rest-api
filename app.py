@@ -192,6 +192,10 @@ def get_worklog(id):
         total_time_spent_seconds += issue['timeSpentSeconds']
     total_working_days = total_time_spent_seconds / 60 / 60 / 8
 
+
+    print('======================================== time', datetime.timedelta(seconds=total_time_spent_seconds))
+    print('======================================== time', total_time_spent_seconds)
+
     print('========================================')
     print(f"Total in {MONTH_START.format('MMMM')}: {total_working_days} working days")
     return f"""<!DOCTYPE html>

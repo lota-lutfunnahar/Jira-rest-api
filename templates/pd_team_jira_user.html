@@ -7,8 +7,13 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
+<div id="loader" class="d-flex justify-content-center">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
 
-  <div class="dashboard-screen" style="margin-top: 40px;">
+  <div class="dashboard-screen" id="content" style="margin-top: 40px; display: none;">
    <div class="container mt-2">
       <div class="row">
         <div class="col-md-3 col-sm-6 item">
@@ -67,3 +72,19 @@
   </div>
 </body>
 </html>
+
+<script type = "text/javascript">
+    window.onload = function() {
+  // Show the loader
+  document.getElementById("loader").style.display = "flex";
+
+  // Simulate loading data
+  setTimeout(function(){
+    // Hide the loader
+    document.getElementById("loader").style.display = "none";
+
+    // Show the content
+    document.getElementById("content").style.display = "block";
+  }, 1000);
+};
+</script>

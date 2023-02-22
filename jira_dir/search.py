@@ -1,7 +1,6 @@
 from typing import List, Any
 
 import app
-import jira
 import jira_dir.util
 import util
 
