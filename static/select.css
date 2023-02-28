@@ -1,0 +1,49 @@
+// Placeholder selector
+%transition {transition: background .35s ease;}
+
+.dropdown {
+  /* margin: 2em auto; */
+  /*width: 14.5em;*/
+  border: .1em solid #c0cdd1;
+}
+
+.fa {float: right}
+
+a {
+  display: block;
+  padding: .5em;
+  color: #000;
+  text-decoration: none;
+  @extend %transition;
+  &:focus,
+  &:hover {background: #ecf0f1;}
+  &:active {background: #fbfcfc;}
+}
+
+li {
+  padding: .5em;
+  cursor: pointer;
+  &:not(:first-child) {
+    border-top: .1em dashed #dde4e6;
+  }
+  &:last-child {color: #ad0000;}
+  &:focus,
+  &:hover {background: #ecf0f1;}
+  &:active {background: #fbfcfc;}
+}
+
+.button {
+    cursor: pointer;
+   /* margin-left: 30px;*/
+    width: 200px;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255 255 255 / 15%);
+    color: #212121;
+    font-weight: 600;
+    box-shadow: 2px 4px 8px rgba(45, 87, 5, 0.247);
+    border: aliceblue;
+}
+

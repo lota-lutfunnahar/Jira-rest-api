@@ -131,6 +131,19 @@ def get_sprint():
     print(sprint_issue_dta)
     return render_template('sprint_issue.html', info=sprint_sts_dta, data=sprint_issue_dta, url=jira_dir.URL)
 
+@app.route('/pdUserWorklogReport')
+def get_pdlogreport():
+    return render_template('pd-teams.html')
+@app.route('/seUserWorklogReport')
+def get_selogreport():
+    return render_template('se-teams.html')
+@app.route('/pdUserWorklogDateWise')
+def get_pddatewiselogreport():
+    return render_template('date-range-log.html')
+@app.route('/seUserWorklogDateWise')
+def get_sedatewiselogreport():
+    return render_template('se-date-range-log.html')
+
 @app.route('/pdUserProfile')
 def get_users():
     data = {
