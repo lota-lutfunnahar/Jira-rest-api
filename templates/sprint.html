@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="/static/dropdown.css" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+
+<form action="/sprint" method="POST">
+   <div class="dashboard">
+    <!-- <body style="text-align:center;"> -->
+     <div class="dashboard-screen">
+         <div class="app-title">
+            <p> You are successful logged in!  <a href='/logout'>Logout</a> </p>
+            <p> <a href='/'>Go Back</a> </p>
+         </div>
+         <div class="container">
+          <h4 class="header4" >Choose a Sprint</h4>
+            <div class="select">
+               <select name="format" id="format">
+                  <option selected disabled>Choose a sprint</option>
+                    {% for item in data %}
+                        <option value="{{item.id}}">{{item.name}}</option>
+                    {% endfor %}
+               </select>
+            </div>
+            <button type="submit"  id="loadButton" class="button">Go</button>
+
+        </div>
+     </div>
+   </div>
+</form>
+
+
+<!-- </body> -->

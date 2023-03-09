@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  <link rel="stylesheet" href="/static/style.css" type="text/css">-->
+  <link rel="stylesheet" href="/static/profile.css" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <div class="dashboard-screen" style="margin-top: 40px;">
+     <div class="app-title">
+       <div class="container mt-2">
+          <div class="row">
+            <div class="col-md-3 col-sm-6 item">
+                <p> <a href='/seUserWorklogReport'><button>Go Back</button></a> </p>
+            </div>
+          </div>
+       </div>
+     </div>
+   <div class="container mt-2">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 item">
+          <div class="card item-card card-block">
+            <img src="https://images.pexels.com/photos/4126743/pexels-photo-4126743.jpeg" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Rashed Chowdhury • Manager SE </h5>
+                <p class="card-text"><a href='/worklog/{{userInfo.rcId}}'>Worklog</a></p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 item">
+          <div class="card item-card card-block">
+            <img src="https://images.pexels.com/photos/2115217/pexels-photo-2115217.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Anisuzzaman Prodhan • TL </h5>
+                <p class="card-text"><a href='/worklog/{{userInfo.ansId}}'>Worklog</a></p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 item">
+          <div class="card item-card card-block">
+            <img src="https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Abdullah Al Mahmud • SE Engineer </h5>
+                 <p class="card-text"><a href='/worklog/{{userInfo.abId}}'>Worklog</a></p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 item">
+          <div class="card item-card card-block">
+            <img src="https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Raisul Islam Reyad • Security Architect </h5>
+                <p class="card-text"><a href='/worklog/{{userInfo.raiId}}'>Worklog</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-sm-6 item">
+          <div class="card item-card card-block">
+            <img src="https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Arafat Mahmud Meem • Solution Engineer</h5>
+                <p class="card-text"><a href='/worklog/{{userInfo.arfID}}'>Worklog</a></p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 item">
+          <div class="card item-card card-block">
+            <img src="https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Prashanta Palit • Security Engineer </h5>
+                <p class="card-text"><a href='/worklog/{{userInfo.palId}}'>Worklog</a></p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 item">
+          <div class="card item-card card-block">
+            <img src="https://images.pexels.com/photos/106344/pexels-photo-106344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photo of sunset">
+                <h5 class="card-title  mt-3 mb-3">Md. Azim Uddin • SE Intern</h5>
+                 <p class="card-text"><a href='/worklog/{{userInfo.azId}}'>Worklog</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

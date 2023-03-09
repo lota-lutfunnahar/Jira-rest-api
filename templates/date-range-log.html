@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/static/select.css" type="text/css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div id="loader" class="d-flex justify-content-center">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+  <div class="dashboard-screen" id="content" style="margin-top: 40px; display: none;">
+     <div class="app-title">
+       <div class="container mt-2">
+          <div class="row">
+            <div class="col-md-3 col-sm-6 item">
+                <p> <a href='/pdUserWorklogReport'><button>Go Back</button></a> </p>
+            </div>
+          </div>
+       </div>
+     </div>
+   <div class="container mt-2">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 item">
+           <div id="reportrange" style="background: #fff; cursor: pointer; padding: 7px 10px; border: 1px solid #ccc; width: 100%">
+              <i class="fa fa-calendar" style="float:left"></i>&nbsp;
+              <span></span> <i class="fa fa-caret-down" style="float:right; padding-right:6px"></i>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3 item">
+            <div class="dropdown">
+              <a href="#" class="js-link">Select one option <i class="fa fa-chevron-down"></i></a>
+              <ul class="js-dropdown-list" style="display: none; border-top: .1em solid #c0cdd1;">
+                <li>Apurba Singh</li>
+                <li>Shuravi Parvin</li>
+                <li>Md. Towfiqur Rahman</li>
+                <li>Mushfiqul Islam Chowdhury</li>
+                <li>Abdullah Al Mamun</li>
+                <li>Imran</li>
+                <li>* Reset</li>
+              </ul>
+            </div>
+        </div>
+      <div class="col-md-3 col-sm-6 item">
+          <button type="submit"  id="loadButton" class="button">Submit</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script type="text/javascript">
+$(function() {
+
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        console.log(start.format('YYYY-MM-DD'));
+        console.log(end.format('YYYY-MM-DD'));
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+    console.log(start);
+
+});
+
+$(function() {
+  var list = $('.js-dropdown-list');
+  var link = $('.js-link');
+  link.click(function(e) {
+    e.preventDefault();
+    list.slideToggle(200);
+  });
+  list.find('li').click(function() {
+    var text = $(this).html();
+    var icon = '<i class="fa fa-chevron-down"></i>';
+    link.html(text+icon);
+    list.slideToggle(200);
+    if (text === '* Reset') {
+      link.html('Select one option'+icon);
+    }
+  });
+});
+
+
+    window.onload = function() {
+  // Show the loader
+  document.getElementById("loader").style.display = "flex";
+
+  // Simulate loading data
+  setTimeout(function(){
+    // Hide the loader
+    document.getElementById("loader").style.display = "none";
+
+    // Show the content
+    document.getElementById("content").style.display = "block";
+  }, 1000);
+};
+</script>
