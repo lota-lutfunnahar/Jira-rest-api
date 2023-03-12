@@ -1,5 +1,5 @@
 import dateutil
-from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify
 import logging
 import datetime
 import os
@@ -176,9 +176,64 @@ def get_se_users():
 def get_team():
     return render_template('team-wise-user.html')
 
+
+
 @app.route('/worklog/<string:id>', methods=['GET'])
 def get_worklog(id):
     print(f"Running for {jira_dir.HOST}, {MONTH_START.format('MMMM YYYY')}...")
+
+    issues = jira_dir.search.get_issues(id)
+    # print('issue',issues)
+    jira_dir.worklog.attach_worklogs(issues)
+
+    user_info = jira_dir.util.get_user_info('/user', 'issues', id)
+
+    user_name = user_info['displayName']
+
+    table = PrettyTable(['Task', 'Name', 'Status', 'Spend time'])
+    data_list = []
+    for issue in issues:
+        if issue['timeSpentSeconds']:
+            table.add_row([
+                f"<a href=\"{jira_dir.URL + '/browse/' + issue['key']}\">{issue['key']}</a>",
+                issue['summary'],
+                issue['status'],
+                datetime.timedelta(seconds=issue['timeSpentSeconds'])
+            ])
+
+    print(data_list)
+    total_time_spent_seconds = 0
+    for issue in issues:
+        total_time_spent_seconds += issue['timeSpentSeconds']
+    total_working_days = total_time_spent_seconds / 60 / 60 / 8
+
+
+    print('======================================== time', datetime.timedelta(seconds=total_time_spent_seconds))
+    print('======================================== time', total_time_spent_seconds)
+
+    print('========================================')
+    print(f"Total in {MONTH_START.format('MMMM')}: {total_working_days} working days")
+    return f"""<!DOCTYPE html>
+        <html lang="ru">
+            <head>
+              <meta charset="UTF-8">
+              <title>Title {user_name}</title>
+            </head>
+            <body>
+                <p>Jira user <b>{user_name}</b> s <b>
+                    {MONTH_START.format('MMMM YYYY', locale='en')}</b>
+                    (Information <a href="{jira_dir.URL}">{jira_dir.URL}</a>)</p>
+                {table.get_html_string(format=True)}
+                <p><b>Total:</b> {total_working_days} working days
+                    ({datetime.timedelta(seconds=total_time_spent_seconds)} actual time).</p>
+                <p><b>Ready report:</b> {arrow.now().format(locale='en')}</p>
+            </body>
+        </html>"""
+
+@app.route('/workloadreport')
+def get_date_wise_worklog():
+    print(f"Running for {jira_dir.HOST}, {MONTH_START.format('MMMM YYYY')}...")
+    print(request.args)
 
     issues = jira_dir.search.get_issues(id)
     # print('issue',issues)
