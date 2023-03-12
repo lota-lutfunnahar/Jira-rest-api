@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 import logging
 import datetime
 import os
+from pathlib import Path
 
 from jira import JIRA
 import jira_dir
@@ -230,16 +231,17 @@ def get_worklog(id):
             </body>
         </html>"""
 
-@app.route('/workloadreport')
+@app.route('/workloadreport', methods=['GET'])
 def get_date_wise_worklog():
-    print(f"Running for {jira_dir.HOST}, {MONTH_START.format('MMMM YYYY')}...")
-    print(request.args)
 
-    issues = jira_dir.search.get_issues(id)
-    # print('issue',issues)
+    user_id = request.args["param1"]
+    start_date = request.args["param2"]
+    end_date = request.args["param3"]
+
+    issues = jira_dir.search.get_issues_date_wise(user_id, start_date, end_date)
     jira_dir.worklog.attach_worklogs(issues)
 
-    user_info = jira_dir.util.get_user_info('/user', 'issues', id)
+    user_info = jira_dir.util.get_user_info('/user', 'issues', user_id)
 
     user_name = user_info['displayName']
 
@@ -254,7 +256,6 @@ def get_date_wise_worklog():
                 datetime.timedelta(seconds=issue['timeSpentSeconds'])
             ])
 
-    print(data_list)
     total_time_spent_seconds = 0
     for issue in issues:
         total_time_spent_seconds += issue['timeSpentSeconds']
@@ -266,7 +267,7 @@ def get_date_wise_worklog():
 
     print('========================================')
     print(f"Total in {MONTH_START.format('MMMM')}: {total_working_days} working days")
-    return f"""<!DOCTYPE html>
+    html_content = f"""<!DOCTYPE html>
         <html lang="ru">
             <head>
               <meta charset="UTF-8">
@@ -282,6 +283,10 @@ def get_date_wise_worklog():
                 <p><b>Ready report:</b> {arrow.now().format(locale='en')}</p>
             </body>
         </html>"""
+
+    # report = Path(f"report_{jira_dir.HOST}_{MONTH_START.format('YYYYMM')}.html")
+    # report.write_text(html_content)
+    return html_content
 
 @app.route("/logout")
 def logout():
