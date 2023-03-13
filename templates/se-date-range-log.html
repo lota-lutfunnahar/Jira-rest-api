@@ -42,19 +42,19 @@
             <div class="dropdown">
               <a href="#" class="js-link">Select one option <i class="fa fa-chevron-down"></i></a>
               <ul class="js-dropdown-list" style="display: none; border-top: .1em solid #c0cdd1;">
-                <li>Rashed Chowdhury</li>
-                <li>Anisuzzaman Prodhan</li>
-                <li>Abdullah Al Mahmud</li>
-                <li>Raisul Islam Reyad</li>
-                <li>Arafat Mahmud Meem</li>
-                <li>Prashanta Palit</li>
-                <li>Md. Azim Uddin</li>
+                <li value="5fbcad8ecbead50069233962">Rashed Chowdhury</li>
+                <li value="60051061bd160e007504d330">Anisuzzaman Prodhan</li>
+                <li value="624bf73e2e101c006a916003">Abdullah Al Mahmud</li>
+                <li value="62822ba4ca7d7f0069ffb08e">Raisul Islam Reyad</li>
+                <li value="6226c07e8a4bb60068f4d1e5">Arafat Mahmud Meem</li>
+                <li value="63296f968b75455be452fcc1">Prashanta Palit</li>
+                <li value="63883ea05fce844d606bb034">Md. Azim Uddin</li>
                 <li>* Reset</li>
               </ul>
             </div>
         </div>
       <div class="col-md-3 col-sm-6 item">
-          <button type="submit"  id="loadButton" class="button">Submit</button>
+          <button type="submit"  id="loadButton" class="button" onclick="myFunction()">Submit</button>
       </div>
       </div>
     </div>
@@ -63,6 +63,10 @@
 </html>
 
 <script type="text/javascript">
+
+user = "";
+sdate= '';
+edate = '';
 $(function() {
 
     var start = moment().subtract(29, 'days');
@@ -70,8 +74,10 @@ $(function() {
 
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        console.log(start.format('YYYY-MM-DD'));
-        console.log(end.format('YYYY-MM-DD'));
+        sdate = start.format('YYYY-MM-DD')
+        console.log(sdate);
+        edate = end.format('YYYY-MM-DD')
+        console.log(edate);
     }
 
     $('#reportrange').daterangepicker({
@@ -88,7 +94,6 @@ $(function() {
     }, cb);
 
     cb(start, end);
-    console.log(start);
 
 });
 
@@ -101,6 +106,8 @@ $(function() {
   });
   list.find('li').click(function() {
     var text = $(this).html();
+    var id = $(this).attr("value");
+    user = id;
     var icon = '<i class="fa fa-chevron-down"></i>';
     link.html(text+icon);
     list.slideToggle(200);
@@ -124,4 +131,12 @@ $(function() {
     document.getElementById("content").style.display = "block";
   }, 1000);
 };
+
+// btn click fucntion ***
+
+function myFunction() {
+    var params = "param1="+user+"&param2="+sdate+"&param3="+edate+"";
+    window.open("http://localhost:4000/workloadreport?"+params+"");
+};
+
 </script>

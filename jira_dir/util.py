@@ -34,6 +34,7 @@ def get_all(endpoint: str, what: str, params: Mapping[str, Any] = None) -> Mappi
     print('url is ', url)
 
     data = rest.get(url, auth=jira_dir.AUTH).json()
+    print(data)
 
     print('OK GET', endpoint)
 

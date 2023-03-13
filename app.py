@@ -274,8 +274,8 @@ def get_date_wise_worklog():
               <title>Title {user_name}</title>
             </head>
             <body>
-                <p>Jira user <b>{user_name}</b> s <b>
-                    {MONTH_START.format('MMMM YYYY', locale='en')}</b>
+                <p>Jira user <b>{user_name}</b> s 
+                    From Date <b> {start_date}</b> To Date <b>{end_date}</b>
                     (Information <a href="{jira_dir.URL}">{jira_dir.URL}</a>)</p>
                 {table.get_html_string(format=True)}
                 <p><b>Total:</b> {total_working_days} working days
