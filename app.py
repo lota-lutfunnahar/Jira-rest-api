@@ -3,7 +3,6 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 import logging
 import datetime
 import os
-from pathlib import Path
 
 from jira import JIRA
 import jira_dir

@@ -33,3 +33,7 @@ FLASK_APP=app
   496  python3 -m flask run
   497  pip install jira
   498  python3 -m flask run
+
+  # dockerize
+  docker build . -t jira-api
+  docker run -p 8089:4000 -d jira-api # run image file
