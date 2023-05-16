@@ -44,3 +44,9 @@ FLASK_APP=app
   - docker login # set userid and password of dockerhub account
   - docker tag jira_rest_api:latest lota123/jira-automate-report:latest
   - docker push lota123/jira-automate-report:latest
+  
+  pull from docker and run in local
+
+    docker pull lota123/jira-automate-report:latest
+    docker run -it lota123/jira-automate-report:latest
+
