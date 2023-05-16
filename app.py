@@ -154,6 +154,7 @@ def get_users():
         'musId': '627783aaea6ca0006972210d',
         'mamnId': '638840af9960988ef6c10279',
         'imranId': '6343e6afcba49e290970c792',
+        'imranUId': '641161c9c35660c269ba19d9',
     }
     print(data)
     return render_template('pd_team_jira_user.html', userInfo=data)
