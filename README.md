@@ -1,15 +1,26 @@
 # Jira-rest-api
 
 ### Python application run command
-- ```python3 -m flask run```
+ ```
+ python3 -m flask run
+```
 
 ### Docker container up and running 
-- ```docker build . -t jira-api```
-- ```docker run -p 8089:4000 -d jira-api # run image file```
+```
+docker build . -t jira-api
+```
+```
+docker run -p 8089:4000 -d jira-api # run image file
+```
 
 ### docker hub upload an image
-- ```docker ps```
--``` docker commit 87abc1b8aeb3 jira_rest_api:latest``` # before login create a reporsitory in dockerhub
+ ```
+ docker ps
+```
+```
+docker commit 87abc1b8aeb3 jira_rest_api:latest
+```
+# before login create a reporsitory in dockerhub
 - docker login # set userid and password of dockerhub account
 - ```docker tag jira_rest_api:latest lota123/jira-automate-report:latest```
 - ```docker push lota123/jira-automate-report:latest```
