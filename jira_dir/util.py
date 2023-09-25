@@ -31,8 +31,10 @@ def get_all(endpoint: str, what: str, params: Mapping[str, Any] = None) -> Mappi
     print("test arg", params.get('jql'))
 
     url = jira_dir.API_URL + endpoint + '?jql=' + params.get('jql')
+    print('url is ', url)
 
     data = rest.get(url, auth=jira_dir.AUTH).json()
+    print(data)
 
     print('OK GET', endpoint)
 

@@ -1,5 +1,5 @@
 import dateutil
-from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify
 import logging
 import datetime
 import os
@@ -154,6 +154,7 @@ def get_users():
         'musId': '627783aaea6ca0006972210d',
         'mamnId': '638840af9960988ef6c10279',
         'imranId': '6343e6afcba49e290970c792',
+        'imranUId': '641161c9c35660c269ba19d9',
     }
     print(data)
     return render_template('pd_team_jira_user.html', userInfo=data)
@@ -175,6 +176,8 @@ def get_se_users():
 @app.route('/pipelineTeams')
 def get_team():
     return render_template('team-wise-user.html')
+
+
 
 @app.route('/worklog/<string:id>', methods=['GET'])
 def get_worklog(id):
@@ -227,6 +230,63 @@ def get_worklog(id):
                 <p><b>Ready report:</b> {arrow.now().format(locale='en')}</p>
             </body>
         </html>"""
+
+@app.route('/workloadreport', methods=['GET'])
+def get_date_wise_worklog():
+
+    user_id = request.args["param1"]
+    start_date = request.args["param2"]
+    end_date = request.args["param3"]
+
+    issues = jira_dir.search.get_issues_date_wise(user_id, start_date, end_date)
+    jira_dir.worklog.attach_worklogs(issues)
+
+    user_info = jira_dir.util.get_user_info('/user', 'issues', user_id)
+
+    user_name = user_info['displayName']
+
+    table = PrettyTable(['Task', 'Name', 'Status', 'Spend time'])
+    data_list = []
+    for issue in issues:
+        if issue['timeSpentSeconds']:
+            table.add_row([
+                f"<a href=\"{jira_dir.URL + '/browse/' + issue['key']}\">{issue['key']}</a>",
+                issue['summary'],
+                issue['status'],
+                datetime.timedelta(seconds=issue['timeSpentSeconds'])
+            ])
+
+    total_time_spent_seconds = 0
+    for issue in issues:
+        total_time_spent_seconds += issue['timeSpentSeconds']
+    total_working_days = total_time_spent_seconds / 60 / 60 / 8
+
+
+    print('======================================== time', datetime.timedelta(seconds=total_time_spent_seconds))
+    print('======================================== time', total_time_spent_seconds)
+
+    print('========================================')
+    print(f"Total in {MONTH_START.format('MMMM')}: {total_working_days} working days")
+    html_content = f"""<!DOCTYPE html>
+        <html lang="ru">
+            <head>
+              <meta charset="UTF-8">
+              <title>Title {user_name}</title>
+            </head>
+            <body>
+                <p>Jira user <b>{user_name}</b> s 
+                    From Date <b> {start_date}</b> To Date <b>{end_date}</b>
+                    (Information <a href="{jira_dir.URL}">{jira_dir.URL}</a>)</p>
+                {table.get_html_string(format=True)}
+                <p><b>Total:</b> {total_working_days} working days
+                    ({datetime.timedelta(seconds=total_time_spent_seconds)} actual time).</p>
+                <p><b>Ready report:</b> {arrow.now().format(locale='en')}</p>
+            </body>
+        </html>"""
+
+    # report = Path(f"report_{jira_dir.HOST}_{MONTH_START.format('YYYYMM')}.html")
+    # report.write_text(html_content)
+    return html_content
 
 @app.route("/logout")
 def logout():
